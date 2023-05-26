@@ -9,12 +9,16 @@ pipeline {
 
   agent {
     kubernetes {
-      label 'worker-aylien-query-dsl'
+      label 'worker-sbt-swagger-models'
       inheritFrom 'default'
-
       containerTemplates([
-        containerTemplate(name: 'sbt', image: 'gcr.io/aylien-production/sbt', command: 'cat', ttyEnabled: true),
-        containerTemplate(name: 'helm', image: 'gcr.io/aylien-production/helm', command: 'cat', ttyEnabled: true)
+        containerTemplate(
+            name: 'sbt',
+            image: 'gcr.io/aylien-production/sbt-jdk11',
+            alwaysPullImage: true,
+            privileged: true,
+            ttyEnabled: true
+        )
       ])
     }
   }

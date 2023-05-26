@@ -1,11 +1,11 @@
 package io.grhodes.sbt.swagger.models
 
-import org.scalatest.FlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 
-class SbtswaggermodelsSpec extends FlatSpec {
+class SbtswaggermodelsSpec extends AnyFlatSpec {
 
-  "an empty test" should "succeed" in { }
+  "an empty test" should "succeed" in {}
 
-  it should "succeed twice" in { }
+  it should "succeed twice" in {}
 
 }
