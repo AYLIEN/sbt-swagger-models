@@ -1,17 +1,17 @@
 name := "sbt-swagger-models"
 organization := "io.grhodes.sbt"
 
-version := "1.3.0"
+version := "1.4.0"
 
-scalaVersion := "2.12.13"
+scalaVersion := "2.12.17"
 
 enablePlugins(SbtPlugin)
 
 libraryDependencies ++= Seq(
-  "io.swagger.codegen.v3" % "swagger-codegen" % "3.0.8",
-  "io.grhodes" %% "simple-scala-generator" % "1.3.0",
-  "org.scalactic" %% "scalactic" % "3.0.1" % Test,
-  "org.scalatest" %% "scalatest" % "3.0.1" % Test
+  "io.swagger.codegen.v3" % "swagger-codegen" % "3.0.44",
+  "io.grhodes" %% "simple-scala-generator" % "1.4.0",
+  "org.scalactic" %% "scalactic" % "3.2.16" % Test,
+  "org.scalatest" %% "scalatest" % "3.2.16" % Test
 )
 
 scalacOptions ++= List("-unchecked")
@@ -21,7 +21,7 @@ githubOwner := "AYLIEN"
 githubRepository := "sbt-swagger-models"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
-initialCommands in console := """import io.grhodes.sbt.swagger.models._"""
+console / initialCommands := """import io.grhodes.sbt.swagger.models._"""
 
 // set up 'scripted; sbt plugin for testing sbt plugins
 scriptedBufferLog := false
