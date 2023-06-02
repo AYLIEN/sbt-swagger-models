@@ -17,7 +17,12 @@ import scala.util.Using
 
 object ModelGenerator {
 
-  val fileFilter: FileFilter = "*.yml" || "*.yaml" || "*.json"
+  private val fileFilter: FileFilter = "*.yml" || "*.yaml" || "*.json"
+
+  private lazy val fileSystem = FileSystems.newFileSystem(
+    classOf[SimplePlayCodegen].getClassLoader.getResource("templates").toURI,
+    Collections.emptyMap[String, Any]
+  )
 
   def apply(
     streams: TaskStreams,
@@ -198,24 +203,21 @@ object ModelGenerator {
   private def extractTemplatesFromResources(generator: CodegenConfig, templatesTargetPath: Path): Unit = {
     val templatesResource = s"templates/${generator.getName}"
 
-    val fs = FileSystems.newFileSystem(
-      classOf[SimplePlayCodegen].getClassLoader.getResource(templatesResource).toURI,
-      Collections.emptyMap[String, Any]
-    )
-
     Files.createDirectories(templatesTargetPath)
 
-    Files.list(fs.getPath(templatesResource)).iterator().asScala.foreach { path =>
-      val target = Paths.get(templatesTargetPath.toString, path.getFileName.toString)
-      Using(Source.fromInputStream(Files.newInputStream(path)))(source =>
-        Files.write(
-          target,
-          source.getLines().toVector.asJava,
-          StandardOpenOption.WRITE,
-          StandardOpenOption.TRUNCATE_EXISTING,
-          StandardOpenOption.CREATE
+    synchronized {
+      Files.list(fileSystem.getPath(templatesResource)).iterator().asScala.foreach { path =>
+        val target = Paths.get(templatesTargetPath.toString, path.getFileName.toString)
+        Using(Source.fromInputStream(Files.newInputStream(path)))(source =>
+          Files.write(
+            target,
+            source.getLines().toVector.asJava,
+            StandardOpenOption.WRITE,
+            StandardOpenOption.TRUNCATE_EXISTING,
+            StandardOpenOption.CREATE
+          )
         )
-      )
+      }
     }
   }
 }
