@@ -1,7 +1,7 @@
 name := "sbt-swagger-models"
 organization := "io.grhodes.sbt"
 
-version := "1.4.0"
+version := "1.4.1"
 
 scalaVersion := "2.12.17"
 
