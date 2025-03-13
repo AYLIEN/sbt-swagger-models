@@ -1,22 +1,23 @@
 name := "sbt-swagger-models"
 organization := "io.grhodes.sbt"
 
-version := "1.4.1"
+version := "1.4.2"
 
-scalaVersion := "2.12.17"
+scalaVersion := "2.12.20"
 
 enablePlugins(SbtPlugin)
 
 libraryDependencies ++= Seq(
-  "io.swagger.codegen.v3" % "swagger-codegen" % "3.0.44",
-  "io.grhodes" %% "simple-scala-generator" % "1.4.0",
-  "org.scalactic" %% "scalactic" % "3.2.16" % Test,
-  "org.scalatest" %% "scalatest" % "3.2.16" % Test
+  "io.swagger.codegen.v3" % "swagger-codegen" % "3.0.68",
+  "io.grhodes" %% "simple-scala-generator" % "1.4.1",
+  "org.scalactic" %% "scalactic" % "3.2.19" % Test,
+  "org.scalatest" %% "scalatest" % "3.2.19" % Test
 )
 
 scalacOptions ++= List("-unchecked")
 
-githubTokenSource := TokenSource.GitConfig("github.token") || TokenSource.Environment("GITHUB_TOKEN")
+githubTokenSource := TokenSource.GitConfig("github.token") || TokenSource
+  .Environment("GITHUB_TOKEN")
 githubOwner := "AYLIEN"
 githubRepository := "sbt-swagger-models"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
